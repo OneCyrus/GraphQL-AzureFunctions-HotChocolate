@@ -12,19 +12,25 @@ using GraphQLAzureFunctions;
 
 namespace GraphQLAzureFunctions
 {
-    public static class Function1
+    public class GraphQL
     {
+        private readonly IQueryExecutor _executor;
+
+        public GraphQL(IQueryExecutor executor)
+        {
+            _executor = executor;
+        }
+
         [FunctionName("graphql")]
-        public static async Task<IActionResult> Run(
+        public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
-            ILogger log,
-            [Inject(typeof(IQueryExecutor))] IQueryExecutor executor)
+            ILogger log)
         {
             var graphQLRequest = JsonConvert.DeserializeObject<GraphQLRequest>(await req.ReadAsStringAsync());
 
             log.LogInformation(graphQLRequest.Query);
 
-            var result = await executor.ExecuteAsync(new QueryRequest(graphQLRequest.Query));
+            var result = await _executor.ExecuteAsync(new QueryRequest(graphQLRequest.Query));
 
             return new OkObjectResult(result);
         }
