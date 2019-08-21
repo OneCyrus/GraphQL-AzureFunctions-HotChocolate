@@ -23,7 +23,7 @@ namespace StarWars.Types
 
             descriptor.Field<SharedResolvers>(t => t.GetHeight(default, default))
                 .Type<FloatType>()
-                .Argument("unit", a => a.Type<EnumType<Unit>>())
+                .Argument("unit", a => a.Type<UnitType>())
                 .Name("height");
         }
     }

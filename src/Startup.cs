@@ -24,6 +24,7 @@ namespace GraphQLAzureFunctions
                 .AddType<HumanType>()
                 .AddType<DroidType>()
                 .AddType<EpisodeType>()
+                .AddType<UnitType>()
                 .Create());
         }
     }

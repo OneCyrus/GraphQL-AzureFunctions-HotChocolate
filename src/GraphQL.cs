@@ -1,14 +1,11 @@
-using System;
-using System.IO;
-using System.Threading.Tasks;
+using HotChocolate.Execution;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using HotChocolate.Execution;
-using GraphQLAzureFunctions;
+using System.Threading.Tasks;
 
 namespace GraphQLAzureFunctions
 {
@@ -30,7 +27,11 @@ namespace GraphQLAzureFunctions
 
             log.LogInformation(graphQLRequest.Query);
 
-            var result = await _executor.ExecuteAsync(new QueryRequest(graphQLRequest.Query));
+            var query = QueryRequestBuilder.New()
+                   .SetQuery(graphQLRequest.Query)
+                   .SetOperation(graphQLRequest.OperationName);
+
+            var result = await _executor.ExecuteAsync(query.Create());
 
             return new OkObjectResult(result);
         }

@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using HotChocolate.Resolvers;
-using HotChocolate.Types;
-using StarWars.Data;
-using StarWars.Models;
+﻿using HotChocolate.Types;
 
 namespace StarWars.Types
 {
@@ -27,7 +23,7 @@ namespace StarWars.Types
 
             descriptor.Field("height")
                 .Type<FloatType>()
-                .Argument("unit", a => a.Type<EnumType<Unit>>());
+                .Argument("unit", a => a.Type<UnitType>());
         }
     }
 }
