@@ -1,4 +1,5 @@
 ﻿using HotChocolate;
+using HotChocolate.Language;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using StarWars;
@@ -26,6 +27,8 @@ namespace GraphQLAzureFunctions
                 .AddType<EpisodeType>()
                 .AddType<UnitType>()
                 .Create());
+
+            builder.Services.AddSingleton<IDocumentHashProvider>(new MD5DocumentHashProvider());
         }
     }
 }
