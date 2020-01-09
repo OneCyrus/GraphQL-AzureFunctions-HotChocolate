@@ -5,8 +5,8 @@
     <RootNamespace>GraphQL_AzureFunctions_HotChocolate</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="HotChocolate.AspNetCore" Version="10.3.0" />
-    <PackageReference Include="HotChocolate.Types" Version="10.3.0" />
+    <PackageReference Include="HotChocolate.AspNetCore" Version="10.3.2" />
+    <PackageReference Include="HotChocolate.Types" Version="10.3.2" />
     <PackageReference Include="Microsoft.Azure.Functions.Extensions" Version="1.0.0" />
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="3.0.2" />
   </ItemGroup>
