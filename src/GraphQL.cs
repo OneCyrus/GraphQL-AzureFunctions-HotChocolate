@@ -1,7 +1,4 @@
-using HotChocolate.AspNetCore;
 using HotChocolate.AzureFunctions;
-using HotChocolate.Execution;
-using HotChocolate.Server;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
@@ -14,11 +11,11 @@ namespace GraphQLAzureFunctions
 {
     public class GraphQL
     {
-        private readonly IFunctionsGraphQLInjector _graphQLExecutor;
+        private readonly IGraphQLFunctions _graphQLFunctions;
 
-        public GraphQL(IFunctionsGraphQLInjector functionsGraphqlInjector)
+        public GraphQL(IGraphQLFunctions functionsGraphqlInjector)
         {
-            _graphQLExecutor = functionsGraphqlInjector;
+            _graphQLFunctions = functionsGraphqlInjector;
         }
 
         [FunctionName("graphql")]
@@ -26,8 +23,7 @@ namespace GraphQLAzureFunctions
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
             ILogger log, CancellationToken cancellationToken)
         {
-            IExecutionResult result = await _graphQLExecutor.Executor.ExecuteFunctionsQueryAsync(
-                _graphQLExecutor,
+            var result = await _graphQLFunctions.ExecuteFunctionsQueryAsync(
                 req.HttpContext,
                 cancellationToken);
 

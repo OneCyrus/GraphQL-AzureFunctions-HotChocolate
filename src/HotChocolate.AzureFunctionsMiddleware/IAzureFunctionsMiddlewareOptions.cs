@@ -1,8 +1,7 @@
 namespace HotChocolate.AspNetCore
 {
     public interface IAzureFunctionsMiddlewareOptions
-        : IPathOptionAccessor
-        , IParserOptionsAccessor
+        : IParserOptionsAccessor
     {
         int MaxRequestSize { get; }
     }

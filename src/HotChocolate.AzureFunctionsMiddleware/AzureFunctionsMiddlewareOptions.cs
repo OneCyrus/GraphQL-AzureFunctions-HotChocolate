@@ -8,25 +8,8 @@ namespace HotChocolate.AspNetCore
         : IAzureFunctionsMiddlewareOptions
     {
         private const int _minMaxRequestSize = 1024;
-        private PathString _path = new PathString("/");
         private ParserOptions _parserOptions = new ParserOptions();
         private int _maxRequestSize = 20 * 1000 * 1000;
-
-        public PathString Path
-        {
-            get => _path;
-            set
-            {
-                if (!value.HasValue)
-                {
-                    // TODO : resources
-                    throw new ArgumentException(
-                        "The path cannot be empty.");
-                }
-
-                _path = value;
-            }
-        }
 
         public ParserOptions ParserOptions
         {

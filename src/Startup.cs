@@ -29,7 +29,7 @@ namespace GraphQLAzureFunctions
                 .AddType<UnitType>()
                 .Create());
 
-            builder.Services.AddAzureFunctionsGraphQL(new AzureFunctionsMiddlewareOptions());
+            builder.Services.AddAzureFunctionsGraphQL();
 
             builder.Services.AddSingleton<IDocumentHashProvider>(new MD5DocumentHashProvider());
         }
