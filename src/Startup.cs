@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using StarWars;
 using StarWars.Data;
 using StarWars.Types;
+using HotChocolate.AspNetCore;
 
 [assembly: FunctionsStartup(typeof(GraphQLAzureFunctions.Startup))]
 
@@ -27,6 +28,8 @@ namespace GraphQLAzureFunctions
                 .AddType<EpisodeType>()
                 .AddType<UnitType>()
                 .Create());
+
+            builder.Services.AddAzureFunctionsGraphQL(new AzureFunctionsMiddlewareOptions());
 
             builder.Services.AddSingleton<IDocumentHashProvider>(new MD5DocumentHashProvider());
         }
