@@ -1,32 +1,31 @@
-using System;
-using System.IO;
-using System.Threading.Tasks;
+using HotChocolate.AzureFunctions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using HotChocolate.Execution;
-using GraphQLAzureFunctions;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace GraphQLAzureFunctions
 {
-    public static class Function1
+    public class GraphQL
     {
-        [FunctionName("graphql")]
-        public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
-            ILogger log,
-            [Inject(typeof(IQueryExecutor))] IQueryExecutor executor)
+        private readonly IGraphQLFunctions _graphQLFunctions;
+
+        public GraphQL(IGraphQLFunctions graphQLFunctions)
         {
-            var graphQLRequest = JsonConvert.DeserializeObject<GraphQLRequest>(await req.ReadAsStringAsync());
+            _graphQLFunctions = graphQLFunctions;
+        }
 
-            log.LogInformation(graphQLRequest.Query);
-
-            var result = await executor.ExecuteAsync(new QueryRequest(graphQLRequest.Query));
-
-            return new OkObjectResult(result);
+        [FunctionName("graphql")]
+        public async Task<IActionResult> Run(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
+            ILogger log, CancellationToken cancellationToken)
+        {
+            return await _graphQLFunctions.ExecuteFunctionsQueryAsync(
+                req.HttpContext,
+                cancellationToken);
         }
     }
 }

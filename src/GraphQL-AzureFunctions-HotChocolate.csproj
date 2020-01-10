@@ -1,12 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
-    <AzureFunctionsVersion>v2</AzureFunctionsVersion>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AzureFunctionsVersion>v3</AzureFunctionsVersion>
     <RootNamespace>GraphQL_AzureFunctions_HotChocolate</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="HotChocolate.AspNetCore" Version="0.8.2" />
-    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.27" />
+    <PackageReference Include="HotChocolate.AspNetCore" Version="10.3.4" />
+    <PackageReference Include="HotChocolate.Types" Version="10.3.4" />
+    <PackageReference Include="Microsoft.Azure.Functions.Extensions" Version="1.0.0" />
+    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="3.0.2" />
   </ItemGroup>
   <ItemGroup>
     <None Update="host.json">
