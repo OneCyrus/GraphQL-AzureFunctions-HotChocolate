@@ -13,9 +13,9 @@ namespace GraphQLAzureFunctions
     {
         private readonly IGraphQLFunctions _graphQLFunctions;
 
-        public GraphQL(IGraphQLFunctions functionsGraphqlInjector)
+        public GraphQL(IGraphQLFunctions graphQLFunctions)
         {
-            _graphQLFunctions = functionsGraphqlInjector;
+            _graphQLFunctions = graphQLFunctions;
         }
 
         [FunctionName("graphql")]
@@ -23,11 +23,9 @@ namespace GraphQLAzureFunctions
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
             ILogger log, CancellationToken cancellationToken)
         {
-            var result = await _graphQLFunctions.ExecuteFunctionsQueryAsync(
+            return await _graphQLFunctions.ExecuteFunctionsQueryAsync(
                 req.HttpContext,
                 cancellationToken);
-
-            return new OkObjectResult(result);
         }
     }
 }

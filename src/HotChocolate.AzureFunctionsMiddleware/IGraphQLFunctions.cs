@@ -2,6 +2,7 @@
 using HotChocolate.Execution;
 using HotChocolate.Language;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -13,7 +14,7 @@ namespace HotChocolate.AzureFunctions
         IDocumentCache DocumentCache { get; }
         IDocumentHashProvider DocumentHashProvider { get; }
         IQueryExecutor Executor { get; }
-        Task<IExecutionResult> ExecuteFunctionsQueryAsync(
+        Task<IActionResult> ExecuteFunctionsQueryAsync(
             HttpContext context,
             CancellationToken cancellationToken);
     }

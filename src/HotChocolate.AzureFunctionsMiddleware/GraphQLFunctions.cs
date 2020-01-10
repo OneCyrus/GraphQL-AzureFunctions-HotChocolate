@@ -3,6 +3,7 @@ using HotChocolate.Execution;
 using HotChocolate.Language;
 using HotChocolate.Server;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -24,7 +25,7 @@ namespace HotChocolate.AzureFunctions
             AzureFunctionsOptions = azureFunctionsOptions;
         }
 
-        public async Task<IExecutionResult> ExecuteFunctionsQueryAsync(
+        public async Task<IActionResult> ExecuteFunctionsQueryAsync(
             HttpContext context,
             CancellationToken cancellationToken)
         {
@@ -58,7 +59,9 @@ namespace HotChocolate.AzureFunctions
                 }
             }
 
-            return await Executor.ExecuteAsync(builder.Create());
+            var result = await Executor.ExecuteAsync(builder.Create());
+
+            return new OkObjectResult(result);
         }
     }
 }

@@ -30,8 +30,6 @@ namespace GraphQLAzureFunctions
                 .Create());
 
             builder.Services.AddAzureFunctionsGraphQL();
-
-            builder.Services.AddSingleton<IDocumentHashProvider>(new MD5DocumentHashProvider());
         }
     }
 }
