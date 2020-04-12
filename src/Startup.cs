@@ -20,7 +20,6 @@ namespace GraphQLAzureFunctions
             builder.Services.AddSingleton<ReviewRepository>();
 
             builder.Services.AddSingleton<Query>();
-            // builder.Services.AddSingleton<JsonQueryResultSerializer>();
 
             builder.Services.AddGraphQL(sp => SchemaBuilder.New()
                 .AddServices(sp)
