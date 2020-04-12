@@ -11,7 +11,7 @@ namespace HotChocolate.AspNetCore
         {
             serviceCollection.AddSingleton<IAzureFunctionsMiddlewareOptions>(options);
 
-            serviceCollection.AddTransient<IGraphQLFunctions, GraphQLFunctions>();
+            serviceCollection.AddSingleton<IGraphQLFunctions, GraphQLFunctions>();
 
             return serviceCollection;
         }

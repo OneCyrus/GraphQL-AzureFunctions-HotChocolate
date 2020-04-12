@@ -6,6 +6,7 @@ using StarWars;
 using StarWars.Data;
 using StarWars.Types;
 using HotChocolate.AspNetCore;
+using HotChocolate.Execution;
 
 [assembly: FunctionsStartup(typeof(GraphQLAzureFunctions.Startup))]
 
@@ -19,6 +20,7 @@ namespace GraphQLAzureFunctions
             builder.Services.AddSingleton<ReviewRepository>();
 
             builder.Services.AddSingleton<Query>();
+            // builder.Services.AddSingleton<JsonQueryResultSerializer>();
 
             builder.Services.AddGraphQL(sp => SchemaBuilder.New()
                 .AddServices(sp)
